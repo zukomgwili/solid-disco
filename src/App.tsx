@@ -1,5 +1,6 @@
 import React,{ FC, useCallback, useState } from 'react';
 import ReactFlow, { MiniMap, Controls, ReactFlowProps, addEdge, Background, useEdgesState, useNodesState, Connection } from 'react-flow-renderer';
+import { createEdges, createAttributeNode, getEdgeTargetIds } from './utils';
 
 const App: FC = () =>{
   const [choice,setChoice] = useState<string>('');
@@ -28,14 +29,10 @@ const App: FC = () =>{
   };
 
   const handleAddAttribute = () => {
-    setNodes(nodes.concat({
-      id: `${Math.random() * 1000}`,
-      type: 'input',
-      data:{
-        label: attribute
-      },
-      position:{ x: Math.random() * 500, y: Math.random() * 500}
-    }));
+    const id = `a-${Math.random() * 1000}`;
+    const targetIds = getEdgeTargetIds(nodes);
+    setNodes(nodes.concat(createAttributeNode(id, attribute)));
+    setEdges(edges.concat(createEdges(targetIds, id)));
   };
 
   return (
@@ -71,3 +68,4 @@ const DecisionBoard: FC<ReactFlowProps> = ({ nodes, edges, onNodesChange, onEdge
 }
 
 export default App;
+
