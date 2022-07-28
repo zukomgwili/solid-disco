@@ -1,17 +1,16 @@
 import React from 'react';
 import { Edge, Node } from 'react-flow-renderer';
 
-export const createEdges = (targetIds: string[], id: string): Edge[] => {
-  return targetIds.map<Edge>(destId => ({
-    id: `e-${Math.random() * 1000}`,
-    source: id,
-    target: destId
-  }));
-};
 
-export const createAttributeNode = (id: string, attribute: string) => {
+export const createEdge = (source: string, target:string): Edge => ({
+    id: `e-${Math.random() * 1000}`,
+    source,
+    target
+  });
+
+export const createAttributeNode = (attribute: string) => {
   return {
-    id,
+    id:`a-${Math.random() * 1000}`,
     type: 'input',
     data: {
       label: attribute
@@ -28,4 +27,26 @@ export const getEdgeTargetIds = (nodes: Node[]):string[] => {
     }
     return prev;
   }, []);
+};
+
+export const createChoiceNode = (choice: string):Node => {
+  return {
+    id: `c-${Math.random() * 1000}`,
+    data: {
+      label: choice
+    },
+    position: { x: Math.random() * 500, y: Math.random() * 500 }
+  };
+};
+
+export const getEdgeSourceIds = (nodes:Node[]):string[] => {
+  return nodes.filter(({ type }) => type === 'input').map(({ id }) => id);
+};
+
+export const connectChoiceToAttributes = (sourceIds: string[], choiceNode: Node<any>): ConcatArray<Edge<any>> => {
+  return sourceIds.map((id) => createEdge(id, choiceNode.id));
+};
+
+export const connectAttributeToChoices = (targetIds: string[], sourceId: string): Edge[] => {
+  return targetIds.map<Edge>(targetId => createEdge(sourceId, targetId));
 };
