@@ -15,24 +15,10 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "max-len": [
-      "error",
-      {
-        "code": 120
-      }
-    ],
-    "react/function-component-definition": [
-      1,
-      {
-        "namedComponents": "arrow-function"
-      }
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".tsx"]
-      }
-    ],
-    "import/extensions": "never"
+    "max-len": [2,{"code": 120}],
+    "react/function-component-definition": [2,{"namedComponents": "arrow-function"}],
+    "react/jsx-filename-extension": [2,{"extensions": [".tsx"]}],
+    "import/extensions": [0],
+    "import/no-unresolved":[0]
   }
 }

@@ -5,7 +5,7 @@ import {
   useNodesState,
   Connection,
 } from 'react-flow-renderer';
-import { DecisionBoard } from './DecisionBoard';
+import DecisionBoard from './DecisionBoard';
 import {
   createAttributeNode,
   getEdgeTargetIds,
