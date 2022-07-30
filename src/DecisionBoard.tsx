@@ -4,6 +4,7 @@ import ReactFlow, {
   Controls,
   ReactFlowProps, Background,
 } from 'react-flow-renderer';
+import AttributeNode from './AttributeNode';
 import ChoiceNode from './ChoiceNode';
 
 const DecisionBoard: React.FC<ReactFlowProps> = (
@@ -11,7 +12,7 @@ const DecisionBoard: React.FC<ReactFlowProps> = (
     nodes, edges, onNodesChange, onEdgesChange, onConnect,
   }: ReactFlowProps,
 ) => {
-  const nodeTypes = useMemo(() => ({ choice: ChoiceNode }), []);
+  const nodeTypes = useMemo(() => ({ choice: ChoiceNode, attribute: AttributeNode }), []);
   return (
     <ReactFlow
       nodeTypes={nodeTypes}
