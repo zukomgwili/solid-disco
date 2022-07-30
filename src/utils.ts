@@ -1,6 +1,11 @@
 import { Edge, Node } from 'react-flow-renderer';
 
-export const createEdge = (source: string, target:string): Edge => ({
+type IdAndName = {
+  id: string;
+  name: string;
+};
+
+export const createEdge = (source: string, target: string): Edge => ({
   id: `e-${Math.random() * 1000}`,
   source,
   target,
@@ -8,38 +13,34 @@ export const createEdge = (source: string, target:string): Edge => ({
 
 export const createAttributeNode = (attribute: string) => ({
   id: `a-${Math.random() * 1000}`,
-  type: 'input',
+  type: 'attribute',
   data: {
-    label: attribute,
+    name: attribute,
   },
   position: { x: Math.random() * 500, y: Math.random() * 500 },
 });
 
-export const getEdgeTargetIds = (nodes: Node[]):string[] => nodes.reduce<string[]>((prev, curr) => {
-  const { type } = curr;
-  if (!type) {
-    return prev.concat(curr.id);
-  }
-  return prev;
-}, []);
-
-export const createChoiceNode = (choice: string):Node => ({
+export const createChoiceNode = (choice: string, attributes: IdAndName[]): Node => ({
   id: `c-${Math.random() * 1000}`,
+  type: 'choice',
   data: {
-    label: choice,
+    title: choice,
+    attributes,
   },
   position: { x: Math.random() * 500, y: Math.random() * 500 },
 });
 
-export const getEdgeSourceIds = (nodes: Node[]): string[] =>
-  nodes.filter(({ type }) => type === 'input').map(({ id }) => id);
+export const getAttributesNodes = (nodes: Node[]): Node[] => nodes.filter(({ type }) => type === 'attribute');
 
-export const connectChoiceToAttributes = (
-  sourceIds: string[],
-  choiceNode: Node<any>,
-): ConcatArray<Edge<any>> => sourceIds.map((id) => createEdge(id, choiceNode.id));
+export const getChoicesNodes = (nodes: Node[]): Node[] => nodes.filter(({ type }) => type === 'choice');
 
-export const connectAttributeToChoices = (
-  targetIds: string[],
-  sourceId: string,
-): Edge[] => targetIds.map<Edge>((targetId) => createEdge(sourceId, targetId));
+export const getNodesIdsAndNames = (nodes: Node[]): IdAndName[] =>
+  nodes.map(({ id, data: { name } }) => ({ id, name }));
+
+export const getNodesIds = (nodes: Node[]): string[] => nodes.map(({ id }) => id);
+
+export const connectChoiceToAttributes = (sourceIds: string[], choiceNode: Node<any>): ConcatArray<Edge<any>> =>
+  sourceIds.map((id) => createEdge(id, choiceNode.id));
+
+export const connectAttributeToChoices = (targetIds: string[], sourceId: string): Edge[] =>
+  targetIds.map<Edge>((targetId) => createEdge(sourceId, targetId));
