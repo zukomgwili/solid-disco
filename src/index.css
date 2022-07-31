@@ -3,3 +3,22 @@ main {
   width: 100vw;
   padding: 1rem;
 }
+
+.choice-node {
+  border: 0.063rem solid #777;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.choice-node header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0 0 1rem 0;
+}
+
+.choice-node .attributes {
+  display: flex;
+  flex-direction: column;
+}

@@ -2,22 +2,22 @@ import React, { FC } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 
 type ChoiceAttributeDTO = {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 };
 
 interface ChoiceNodeProps {
-    data: {
-        title:string;
-        attributes:ChoiceAttributeDTO[]
-    }
+  data: {
+    title: string;
+    attributes: ChoiceAttributeDTO[];
+  };
 }
 
 const ChoiceNode: FC<ChoiceNodeProps> = ({ data: { title, attributes } }) => (
-  <article>
+  <article className="choice-node">
     <Handle type="target" position={Position.Top} />
     <header>{title}</header>
-    <section>
+    <section className="attributes">
       {attributes.map(({ id, name }) => (
         <label key={id} htmlFor={id}>
           {name}
