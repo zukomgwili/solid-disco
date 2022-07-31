@@ -11,14 +11,18 @@ export const createEdge = (source: string, target: string): Edge => ({
   target,
 });
 
-export const createAttributeNode = (attribute: string) => ({
-  id: `a-${Math.random() * 1000}`,
-  type: 'attribute',
-  data: {
-    name: attribute,
-  },
-  position: { x: Math.random() * 500, y: Math.random() * 500 },
-});
+export const createAttributeNode = (attribute: string) => {
+  const id = `a-${Math.random() * 1000}`;
+  return {
+    id,
+    type: 'attribute',
+    data: {
+      id,
+      name: attribute,
+    },
+    position: { x: Math.random() * 500, y: Math.random() * 500 },
+  };
+};
 
 export const createChoiceNode = (choice: string, attributes: IdAndName[]): Node => ({
   id: `c-${Math.random() * 1000}`,
