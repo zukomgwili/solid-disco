@@ -12,7 +12,7 @@ main {
   padding: 1rem;
 }
 
-.choice-node header {
+.choice-node > header {
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0 0 1rem 0;
@@ -21,4 +21,10 @@ main {
 .choice-node .attributes {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.choice-attribute header {
+  font-weight: bold;
+  text-align: center;
 }
